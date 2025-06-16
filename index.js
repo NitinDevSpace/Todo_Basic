@@ -1,5 +1,8 @@
+//Better ways to do this store the completed or not value too in the localstorage and calculate remaining tasks based on the 
+//classes that have check box un marked rather than manually inrement an decrement
 //Array for local Storage
 let tasksArr = JSON.parse(localStorage.getItem('tasks')) || [];
+let count = 0;
 
 //Adding local storage tasks
 
@@ -30,7 +33,6 @@ const toggleBtn = document.getElementById('theme-toggle');
 
 
 // JS for Adding a new item to the list
-let count = 0;
 const addbtn = document.querySelector('.add-btn');
     addbtn.addEventListener('click', (e) => {
         const newtask = document.querySelector('.input-section input');

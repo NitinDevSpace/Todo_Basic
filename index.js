@@ -1,3 +1,22 @@
+//Array for local Storage
+let tasksArr = JSON.parse(localStorage.getItem('tasks')) || [];
+
+//Adding local storage tasks
+
+tasksArr.forEach(task => {
+  const ul = document.querySelector('.task-list');
+  const li = document.createElement('li');
+  li.classList.add('task');
+  li.innerHTML = `
+    <input type="checkbox"/> 
+    <span class="task-text">${task}</span>
+    <button class="delete-btn">x</button>
+  `;
+  ul.appendChild(li);
+  count++;
+});
+updateTaskCount();
+
 // Description: This script toggles a dark mode theme on a webpage when a button is clicked.
 const toggleBtn = document.getElementById('theme-toggle');
     toggleBtn.addEventListener('click', () => {
@@ -28,8 +47,10 @@ const addbtn = document.querySelector('.add-btn');
                 <button class="delete-btn">x</button>
             `;
             ul.appendChild(li);
+            tasksArr.push(task);
             count++;
             updateTaskCount();
+            updateLocalStorage();
         }
         newtask.value = '';
     })
@@ -42,10 +63,14 @@ const ul = document.querySelector('.task-list');
 
 ul.addEventListener('click', (e) => {
   if (e.target.classList.contains('delete-btn')) {
-    e.target.parentElement.remove(); // remove the <li>
-    count--;
-    updateTaskCount();
-  }
+  const taskText = e.target.parentElement.querySelector('.task-text').innerText;
+  tasksArr = tasksArr.filter(t => t !== taskText); // remove from array
+  e.target.parentElement.remove(); // remove from UI
+  count--;
+  updateLocalStorage();
+  updateTaskCount();
+}
+
 
   // Completing Tasks with checkbox
 
@@ -83,6 +108,11 @@ const taskcount = document.getElementById('rem_tasks');
 
 function updateTaskCount() {// understand that script only runs once so need to update something then call the fn again and again
   taskcount.innerText = count;
+}
+
+//updating the local storage
+function updateLocalStorage(){
+  localStorage.setItem('tasks', JSON.stringify(tasksArr))
 }
 
 

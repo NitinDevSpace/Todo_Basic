@@ -5,7 +5,6 @@ https://nitindevspace.github.io/Todo_Basic/
 
 Future Updates:
 
-1. Local Storage
-2. login
-3. backend connection
-4. weather API
+1. login
+2. backend connection
+3. weather API
